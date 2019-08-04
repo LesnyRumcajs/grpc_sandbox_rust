@@ -3,8 +3,8 @@ use std::sync::Arc;
 
 use grpcio::{ChannelBuilder, EnvBuilder};
 
-use protos::diner::{Item, Order};
-use protos::diner_grpc::DinerClient;
+use protos::adder::AddRequest;
+use protos::adder_grpc::AdderClient;
 
 fn main() {
     let args = env::args().collect::<Vec<_>>();
@@ -17,10 +17,12 @@ fn main() {
 
     let env = Arc::new(EnvBuilder::new().build());
     let ch = ChannelBuilder::new(env).connect(format!("localhost:{}", port).as_str());
-    let client = DinerClient::new(ch);
+    let client = AdderClient::new(ch);
 
-    let mut order = Order::new();
-    order.set_items(vec![Item::SPAM, Item::EGGS]);
-    let check = client.eat(&order).expect("RPC Failed!");
-    println!("Ate {:?} and got charged ${:.2}", order, check.get_total());
+    let mut add_req = AddRequest::new();
+    add_req.set_first(2);
+    add_req.set_second(2);
+
+    let check = client.add_numbers(&add_req).expect("RPC Failed!");
+    println!("2 + 2 = {}", check.get_result());
 }

@@ -5,11 +5,18 @@ authors = ["Hubert Bugaj <lesny.rumcajs@gmail.com>"]
 edition = "2018"
 build = "build.rs"
 
+[lib]
+name = "protos"
+path = "src/protos/mod.rs"
+
 [[bin]]
 name = "adder_client"
 path = "src/adder_client.rs"
 
 [dependencies]
+futures = "0.1.16"
+grpcio = "0.4.3"
+protobuf = "~2"
 
 [build-dependencies]
 protoc-grpcio = "1.0.2"
