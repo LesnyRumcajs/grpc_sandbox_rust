@@ -1,0 +1,15 @@
+[package]
+name = "grpc_sandbox_rust"
+version = "0.1.0"
+authors = ["Hubert Bugaj <lesny.rumcajs@gmail.com>"]
+edition = "2018"
+build = "build.rs"
+
+[[bin]]
+name = "adder_client"
+path = "src/adder_client.rs"
+
+[dependencies]
+
+[build-dependencies]
+protoc-grpcio = "1.0.2"
